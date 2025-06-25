@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Luas dan Keliling Segitiga Sempurna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+
+        .container {
+            background-color:red;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 550px; /* Slightly increased max-width for better spacing */
+        }
+
+        h1, h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .calculator-section {
+            margin-bottom: 30px; /* Increased margin for better separation */
+            padding: 20px; /* Increased padding */
+            border: 1px rede0e0e0; /* Slightly darker border */
+            border-radius: 6px; /* Slightly larger border-radius */
+            background-color:pink;
+            text-align: left; /* Align labels and inputs to the left */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: orangered;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 22px); /* Adjust width for padding and border */
+            padding: 10px;
+            margin-bottom: 18px; /* Increased margin-bottom */
+            border: 1px solid black; /* Slightly darker border for inputs */
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box; /* Ensure padding doesn't push input out */
+        }
+
+        button {
+            background-color: #28a745; /* Green color for calculation button */
+            color:red;
+            padding: 12px 20px; /* Larger padding for buttons */
+            border: none;
+            border-radius: 5px; /* Slightly larger border-radius for buttons */
+            cursor: pointer;
+            font-size: 17px; /* Larger font size for buttons */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Added transform for hover effect */
+            width: 100%; /* Make button full width */
+            box-sizing: border-box;
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        p {
+            margin-top: 20px; /* Increased margin-top */
+            font-size: 19px; /* Larger font size for results */
+            font-weight: bold;
+            color:orange;
+            text-align: center; /* Center the result text */
+        }
+
+        span#areaResult, span#perimeterResult {
+            color:yellow; /* Blue color for the actual result numbers */
+            font-size: 22px; /* Larger font size for the result numbers */
+        }
+
+        .error-message {
+            color: #dc3545; /* Red color for error messages */
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kalkulator Luas dan Keliling Segitiga</h1>
+
+        <div class="calculator-section">
+            <h2>Hitung Luas Segitiga</h2>
+            <label for="base">Alas (a):</label>
+            <input type="number" id="base" placeholder="Masukkan panjang alas" min="0" step="any">
+            <label for="height">Tinggi (t):</label>
+            <input type="number" id="height" placeholder="Masukkan tinggi" min="0" step="any">
+            <button onclick="calculateArea()">Hitung Luas</button>
+            <p>Luas: <span id="areaResult"></span></p>
+        </div>
+
+        <div class="calculator-section">
+            <h2>Hitung Keliling Segitiga</h2>
+            <label for="sideA">Sisi a:</label>
+            <input type="number" id="sideA" placeholder="Masukkan sisi a" min="0" step="any">
+            <label for="sideB">Sisi b:</label>
+            <input type="number" id="sideB" placeholder="Masukkan sisi b" min="0" step="any">
+            <label for="sideC">Sisi c:</label>
+            <input type="number" id="sideC" placeholder="Masukkan sisi c" min="0" step="any">
+            <button onclick="calculatePerimeter()">Hitung Keliling</button>
+            <p>Keliling: <span id="perimeterResult"></span></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateArea() {
+            const baseInput = document.getElementById('base');
+            const heightInput = document.getElementById('height');
+            const areaResultSpan = document.getElementById('areaResult');
+
+            const base = parseFloat(baseInput.value);
+            const height = parseFloat(heightInput.value);
+
+            if (isNaN(base) || isNaN(height) || base <= 0 || height <= 0) {
+                areaResultSpan.textContent = "Masukkan angka positif yang valid untuk alas dan tinggi.";
+                areaResultSpan.style.color = '#dc3545'; // Set color to red for error
+            } else {
+                const area = (0.5 * base * height).toFixed(2); // Calculate area and round to 2 decimal places
+                areaResultSpan.textContent = area;
+                areaResultSpan.style.color = '#007bff'; // Set color to blue for result
+            }
+        }
+
+        function calculatePerimeter() {
+            const sideAInput = document.getElementById('sideA');
+            const sideBInput = document.getElementById('sideB');
+            const sideCInput = document.getElementById('sideC');
+            const perimeterResultSpan = document.getElementById('perimeterResult');
+
+            const sideA = parseFloat(sideAInput.value);
+            const sideB = parseFloat(sideBInput.value);
+            const sideC = parseFloat(sideCInput.value);
+
+            if (isNaN(sideA) || isNaN(sideB) || isNaN(sideC) || sideA <= 0 || sideB <= 0 || sideC <= 0) {
+                perimeterResultSpan.textContent = "Masukkan angka positif yang valid untuk semua sisi.";
+                perimeterResultSpan.style.color = '#dc3545'; // Set color to red for error
+            } else if (sideA + sideB <= sideC || sideA + sideC <= sideB || sideB + sideC <= sideA) {
+                // Triangle inequality theorem: the sum of the lengths of any two sides of a triangle must be greater than the length of the third side.
+                perimeterResultSpan.textContent = "Sisi-sisi tidak dapat membentuk segitiga.";
+                perimeterResultSpan.style.color = '#dc3545'; // Set color to red for error
+            } else {
+                const perimeter = (sideA + sideB + sideC).toFixed(2); // Calculate perimeter and round to 2 decimal places
+                perimeterResultSpan.textContent = perimeter;
+                perimeterResultSpan.style.color = '#007bff'; // Set color to blue for result
+            }
+        }
+    </script>
+</body>
+</html>
